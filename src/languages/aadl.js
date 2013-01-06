@@ -21,7 +21,47 @@ function(hljs) {
     },
     illegal: '{',
     contains: [
-      hljs.C_BLOCK_COMMENT_MODE,        // AADL block commenting.
+      {
+        className: 'component',
+        beginWithKeyword: true, end: '\n',
+        keywords: 'data subprogram thread process processor virtual bus memory',
+        illegal: ':',
+        contains: [
+          {
+            beginWithKeyword: true,
+            keywords: 'extends implementation',
+            relevance: 10
+          },
+          {
+            className: 'title',
+            begin: hljs.UNDERSCORE_IDENT_RE
+          }
+        ]
+      },
+      {
+        className: 'package',
+        beginWithKeyword: true, end: '\n',
+        keywords: 'package',
+        illegal: ':',
+        contains: [
+          {
+            className: 'title',
+            begin: hljs.UNDERSCORE_IDENT_RE
+          }
+        ]
+      },
+      {
+        className: 'end',
+        beginWithKeyword: true, end: ';',
+        keywords: 'end',
+        illegal: ':',
+        contains: [
+          {
+            className: 'title',
+            begin: hljs.UNDERSCORE_IDENT_RE
+          }
+        ]
+      },
       {
         className: 'comment',
         begin: '--', end: '$'
